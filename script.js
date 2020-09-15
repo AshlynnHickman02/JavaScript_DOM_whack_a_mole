@@ -45,11 +45,29 @@ function startGame(){
         timeUp = true; 
     }, timeLimit);
     
-    let startCountdown = setInterval;
+    let startCountdown = setInterval(function(){
+        countdown -= 1;
+        countdownBoard.textContent = countdown;
+        if(countdown < 0){
+            countdown = 0;
+            clearInterval(startCountdown);
+            countdownBoard.textContent = 'Times Up!';
+        }
+    }, 1000);
 }
 
 //step 4 adding event listeners//
+startButton.addEventListener('click', startGame);
 
+function whack(e){
+    score++;
+    this.style.backgroundImage = 'url("yoda2.png")';
+    this.style.pointerEvents = all;
+    setTimeout(() => {
+        this.style.backgroundImage = 'url("yoda1.png")';
+    }, 800);
+    scoreBoard.textContent = score;
+}
 
 //step 5 keep track of score with forEach//
-
+moles.forEach(mole => mole.addEventListener('click', whack));
